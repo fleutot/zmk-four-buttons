@@ -21,8 +21,8 @@
         wakeup-source;
 
         row-gpios
-            = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            = <&gpio0 6 (GPIO_ACTIVE_HIGH)>
+            , <&gpio0 8 (GPIO_ACTIVE_HIGH)>
             ;
 
     };

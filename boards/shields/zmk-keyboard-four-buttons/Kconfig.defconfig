@@ -1,0 +1,17 @@
+if SHIELD_FOUR_BUTTONS_LEFT
+
+# Name must be less than 16 characters long!
+config ZMK_KEYBOARD_NAME
+    default "4buttons"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_FOUR_BUTTONS_LEFT || SHIELD_FOUR_BUTTONS_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+endif

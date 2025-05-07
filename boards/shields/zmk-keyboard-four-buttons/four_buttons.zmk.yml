@@ -1,0 +1,12 @@
+file_format: "1"
+id: 4buttons
+name: 4buttons
+type: shield
+url: https://github.com/fleutot/zmk-four-buttons
+requires: [nice!nano]
+exposes: []
+features:
+  - keys
+siblings:
+  - four_buttons_left
+  - four_buttons_right

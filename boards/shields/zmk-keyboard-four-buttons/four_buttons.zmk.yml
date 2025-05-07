@@ -4,7 +4,7 @@ name: 4buttons
 type: shield
 url: https://github.com/fleutot/zmk-four-buttons
 requires: [nice!nano]
-exposes: []
+# exposes: []
 features:
   - keys
 siblings:

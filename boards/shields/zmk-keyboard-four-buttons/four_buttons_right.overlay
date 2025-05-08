@@ -1,12 +1,12 @@
 #include "four_buttons.dtsi" // The shared dtsi file is included in the overlay
 
 // Label of the kscan node in the dtsi
-// Right is the mirror of left, beacuse it makes sense to mirror the wiring in
+// Right is the mirror of left, because it makes sense to mirror the wiring in
 // both halves.
 &kscan0 {
     col-gpios
-        = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         ;
 };
 

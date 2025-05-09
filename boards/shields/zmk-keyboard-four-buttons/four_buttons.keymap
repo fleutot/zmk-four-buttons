@@ -2,6 +2,21 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        e_boot: tap_dance_0 {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp E>, <&sys_reset>, <&bootloader>;
+        };
+        r_boot: tap_dance_1 {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp R>, <&sys_reset>, <&bootloader>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -10,7 +25,7 @@
             // |     L     |     E     |     R     |     I     |
             // |     F     |     T     |     G     |     H     |
             bindings = <
-                &kp L    &kp E     &kp R    &kp I
+                &kp L    &e_boot   &r_boot  &kp I
                 &kp F    &kp T     &kp G    &kp H
             >;
         };

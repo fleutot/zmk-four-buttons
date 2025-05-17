@@ -1,19 +1,57 @@
+// Using SCLK as a modifier for compose, since compose does not seem
+// to be standard USB HID.
+// This requires the OS to interpret scroll lock as compose, which is achievable
+// in Linux with:
+// setxkbmap -option compose:sclk
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
+#define BASE 0
+#define INTL 1
+#define MAINT 2
+
+#define CMP SCLK
+
 / {
-    behaviors {
-        e_boot: tap_dance_0 {
-            compatible = "zmk,behavior-tap-dance";
+    macros {
+        aa: aa {
+            compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp E>, <&sys_reset>, <&bootloader>;
+            bindings
+                = <&macro_tap &kp CMP &unshft_o &kp A>;
         };
-        r_boot: tap_dance_1 {
+        ae: ae {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                // DQT is already a shifted sequence, no need to unshift.
+                = <&macro_tap &kp CMP &kp DQT &kp A>;
+        };
+        oe: oe {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                // DQT is already a shifted sequence, no need to unshift.
+                = <&macro_tap &kp CMP &kp DQT &kp O>;
+        };
+    };
+
+    behaviors {
+        boot: tap_dance_1 {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp R>, <&sys_reset>, <&bootloader>;
+        };
+        // Unshifted chars are useful to send compose sequences, so that
+        // holding shift while sending the sequence does not affect that
+        // character.
+        unshft_o: unshifted_o {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp O>, <&kp O>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
 
@@ -25,9 +63,23 @@
             // |     L     |     E     |     R     |     I     |
             // |     F     |     T     |     G     |     H     |
             bindings = <
-                &kp L    &e_boot   &r_boot  &kp I
-                &kp F    &kp T     &kp G    &kp H
+                &mt LSHIFT L    &kp E           &kp R          &kp I
+                &lt INTL F      &lt MAINT T     &lt MAINT G    &kp H
             >;
         };
-    };
+
+        international_layer {
+            bindings =  <
+                &trans    &trans        &trans    &aa
+                &trans    &trans        &oe       &ae
+            >;
+        };
+
+        maintenance_layer {
+            bindings =  <
+                &trans    &boot         &boot      &trans
+                &trans    &trans        &trans     &trans
+            >;
+        };
+};
  };
